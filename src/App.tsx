@@ -1,6 +1,5 @@
-import React = require('react');
-import { FC } from 'react';
-import './SafariZone.css';
+import React, { FC } from 'react';
+import './App.css';
 import SafariZone from './components/SafariZone/SafariZone';
 
 interface AppProps { }

@@ -1,4 +1,3 @@
-
 import { resolve as _resolve } from 'path';
 
 export const entry = './src/index.tsx';

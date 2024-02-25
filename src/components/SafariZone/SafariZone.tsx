@@ -1,5 +1,4 @@
-import React = require('react');
-import { FC } from 'react';
+import React, { FC } from 'react';
 import './SafariZone.css';
 import PokeCard from './PokeCard/PokeCard';
 
