@@ -1,9 +1,4 @@
-.PokeCard {}
-
-.poke-img {
-    height: 40vh;
-}
-
-.poke-name {
-    color: #ffb38d;
+.poke-button-area {
+    display: flex;
+    justify-content: space-between;
 }

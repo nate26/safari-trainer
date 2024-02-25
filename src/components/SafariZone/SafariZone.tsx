@@ -5,7 +5,7 @@ import PokeCard from './PokeCard/PokeCard';
 interface SafariZoneProps { }
 
 const SafariZone: FC<SafariZoneProps> = () => (
-    <div className="SafariZone" data-testid="SafariZone">
+    <div className="safari-zone" data-testid="SafariZone">
         <PokeCard />
     </div>
 );
