@@ -2,11 +2,13 @@
     "name": "safari-master",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "magic": "webpack"
     },
     "dependencies": {
         "@react-rxjs/core": "^0.10.7",
@@ -29,7 +31,10 @@
         "@typescript-eslint/parser": "^7.0.2",
         "eslint": "^8.57.0",
         "eslint-config-react-app": "^7.0.1",
-        "eslint-plugin-react": "^7.33.2"
+        "eslint-plugin-react": "^7.33.2",
+        "ts-loader": "^9.5.1",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4"
     },
     "eslintConfig": {
         "extends": [
