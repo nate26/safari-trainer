@@ -23,10 +23,12 @@ const PokeImg: FC<PokeImgProps> = (props) => {
     const article = ['a', 'e', 'i', 'o', 'u'].indexOf(pokemon.name[0]) >= 0 ? 'an' : 'a';
     const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 
+    const isShiny = Math.random() > 0.8; // move to api call
+
     return (
         <div>
-            <img className="poke-img" src={pokemon.sprites.front_default} />
-            <p>You have encountered {article} <span className="poke-name">{name}</span>!</p>
+            <img className="poke-img" src={isShiny ? pokemon.sprites.front_shiny : pokemon.sprites.front_default} />
+            <p>You have encountered {isShiny ? 'a shiny' : article} <span className="poke-name">{name}</span>!</p>
         </div>
     );
 };

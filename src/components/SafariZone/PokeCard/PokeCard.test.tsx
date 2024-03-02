@@ -5,7 +5,8 @@ import PokeCard from './PokeCard';
 
 describe('<PokeCard />', () => {
     test('it should mount', () => {
-        render(<PokeCard />);
+        function handleCaughtPokemon() {}
+        render(<PokeCard handleCaughtPokemon={handleCaughtPokemon} />);
 
         const pokeCard = screen.getByTestId('PokeCard');
 

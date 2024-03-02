@@ -1,3 +1,10 @@
 .safari-zone {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+}
+
+.poke-card-window {
     margin: 5px 15px;
+    width: 46vw;
 }
