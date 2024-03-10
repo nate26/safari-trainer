@@ -11,3 +11,12 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+.poke-button {
+    font-size: 25px;
+    color: #d9d9d9;
+    background-color: #22252c;
+    padding: 10px 26px;
+    border-radius: 10px;
+    margin: 0 5px;
+}

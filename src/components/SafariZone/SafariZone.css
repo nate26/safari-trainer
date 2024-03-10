@@ -8,3 +8,9 @@
     margin: 5px 15px;
     width: 46vw;
 }
+
+.header-buttons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}

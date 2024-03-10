@@ -18,19 +18,32 @@ const PokeImg: FC<PokeImgProps> = (props) => {
         <p>Pokemon Does Not Exist</p>
     );
 
-    const pokemon = props.response.data;
+    
+    const { name, shiny, sprite } = props.response.data;
 
-    const article = ['a', 'e', 'i', 'o', 'u'].indexOf(pokemon.name[0]) >= 0 ? 'an' : 'a';
-    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-
-    const isShiny = Math.random() > 0.8; // move to api call
+    const article = ['a', 'e', 'i', 'o', 'u'].indexOf(name[0]) >= 0 ? 'an' : 'a';
 
     return (
         <div>
-            <img className="poke-img" src={isShiny ? pokemon.sprites.front_shiny : pokemon.sprites.front_default} />
-            <p>You have encountered {isShiny ? 'a shiny' : article} <span className="poke-name">{name}</span>!</p>
+            <img className="poke-img" src={sprite} />
+            <p className="poke-encounter-text">
+                You have encountered {shiny ? 'a shiny' : article} <span className="poke-name">{name}</span>!
+            </p>
         </div>
     );
+    // return (
+    //     <div>
+    //         <svg width="500px" height="500px" viewBox="0 0 500 500">
+    //             <rect x="0" y="0" width="500" height="500" stroke="transparent" strokeWidth="1" />
+    //             <circle cx="0" cy="50" r="15" fill="blue" stroke="transparent" strokeWidth="1">
+    //                 <animateMotion path="M 0 0 H 500 Z" dur="3s" repeatCount="indefinite" />
+    //             </circle>
+            
+    //             <circle id="rotatingBall" cx="0" cy="50" r="15" fill="green" stroke="transparent" strokeWidth="1" opacity="0.8"></circle>
+    //             <animateTransform xlinkHref="#rotatingBall" attributeName="transform" begin="0s" dur="2s" type="rotate" from="0 20 20" to="360 100 60" repeatCount="indefinite" />
+    //         </svg>
+    //     </div>
+    // );
 };
 
 export default PokeImg;

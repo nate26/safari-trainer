@@ -6,7 +6,7 @@ import { Pokemon } from '../../../interfaces/pokemon.interface';
 
 describe('<PokePC />', () => {
     test('it should mount', () => {
-        const pc = new Map<number, Pokemon>();
+        const pc = new Map<string, Pokemon[]>();
         render(<PokePC pc={pc} />);
 
         const pokePC = screen.getByTestId('PokePC');
