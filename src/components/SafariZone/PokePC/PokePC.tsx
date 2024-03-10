@@ -7,7 +7,7 @@ interface PokePCProps { pc: Map<string, Pokemon[]> }
 const PokePC: FC<PokePCProps> = ({ pc }) => {
     const getPriorityPokemon = (allPokemon: Pokemon[]) => {
         return allPokemon.find(pokemon => pokemon.shiny) ?? allPokemon[0];
-    }
+    };
     return (
         <div className="poke-pc" data-testid="PokePC">
             {
