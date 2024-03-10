@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { PokeApiPokemon } from '../interfaces/poke-api-pokemon.interface';
-import { PokeApiSpecies } from '../interfaces/poke-api-species.interface';
-import { Pokemon } from '../interfaces/pokemon.interface';
+import { PokeApiPokemon } from '../interfaces/PokeAPIPokemon.interface';
+import { PokeApiSpecies } from '../interfaces/PokeAPISpecies.interface';
+import { Pokemon } from '../interfaces/Pokemon.interface';
 
 export const MAX_POKEMON = 150; // 1024;
 

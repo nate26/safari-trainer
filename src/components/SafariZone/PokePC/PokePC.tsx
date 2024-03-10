@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './PokePC.css';
-import { Pokemon } from '../../../interfaces/pokemon.interface';
+import { Pokemon } from '../../../interfaces/Pokemon.interface';
 
 interface PokePCProps { pc: Map<string, Pokemon[]> }
 
@@ -14,13 +14,13 @@ const PokePC: FC<PokePCProps> = ({ pc }) => {
                 Array.from(pc.entries())
                     .map(([id, allPokemon]) => allPokemon.length > 0 ? 
                         (
-                            <div key={id} className="pc-poke-slot">
-                                <img className="pc-poke-img" src={getPriorityPokemon(allPokemon).sprite} />
-                                <div className="pc-poke-count">{allPokemon.length}</div>
+                            <div key={id} className="pc-poke-slot" data-testid="PokePCSlotImg">
+                                <img className="pc-poke-img" data-testid="PokePCImg" src={getPriorityPokemon(allPokemon).sprite} />
+                                <div className="pc-poke-count" data-testid="PokePCCount">{allPokemon.length}</div>
                             </div>
                         ) :
                         (
-                            <div key={id} className="pc-poke-slot">
+                            <div key={id} className="pc-poke-slot" data-testid="PokePCSlotNumber">
                                 {id}
                             </div>
                         )

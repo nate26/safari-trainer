@@ -2,10 +2,10 @@ import React, { FC, useRef, useState } from 'react';
 import './SafariZone.css';
 import PokeCard from './PokeCard/PokeCard';
 import PokePC from './PokePC/PokePC';
-import { Pokemon } from '../../interfaces/pokemon.interface';
+import { Pokemon } from '../../interfaces/Pokemon.interface';
 import PokeBag from './PokeBag/PokeBag';
-import { PokeBall } from '../../enums/pokeballs.enum';
-import { Bag } from '../../interfaces/bag.interface';
+import { PokeBall } from '../../enums/Pokeballs.enum';
+import { Bag } from '../../interfaces/Bag.interface';
 
 interface SafariZoneProps { }
 

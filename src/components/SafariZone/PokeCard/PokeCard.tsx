@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import './PokeCard.css';
-import { getPokemon } from '../../../api/pokeapi';
+import { getPokemon } from '../../../api/Pokeapi';
 import { UseQueryResult } from '@tanstack/react-query';
 import PokeImg from './PokeImg/PokeImg';
-import { Pokemon } from '../../../interfaces/pokemon.interface';
-import { PokeBall } from '../../../enums/pokeballs.enum';
+import { Pokemon } from '../../../interfaces/Pokemon.interface';
+import { PokeBall } from '../../../enums/Pokeballs.enum';
 
 interface PokeCardProps {
     // eslint-disable-next-line no-unused-vars
