@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './PokeCard.css';
-import { getPokemon } from '../../../api/Pokeapi';
+import { getPokemon } from '../../../api/Pokeapi2';
 import { UseQueryResult } from '@tanstack/react-query';
 import PokeImg from './PokeImg/PokeImg';
 import { Pokemon } from '../../../interfaces/Pokemon.interface';
