@@ -37,6 +37,6 @@ export const getPokemon = () => {
         queryKey: ['repoData'],
         queryFn: () => getPokemonApi(rand)
             .then((pokemon) => Promise.all([pokemon, getSpeciesApi(pokemon)]))
-            .then(([ pokemon, species ]) => enrichPokemon(pokemon, species))
+            .then(([pokemon, species]) => enrichPokemon(pokemon, species))
     });
 };
