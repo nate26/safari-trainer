@@ -1,0 +1,44 @@
+.poke-ball-capture {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tilt-capture {
+    animation-name: tiltCapture;
+    animation-timing-function: ease-in;
+    animation-duration: 4s;
+    transform-origin: bottom center;
+}
+
+@keyframes tiltCapture {
+
+    0%,
+    15%,
+    25%,
+    35%,
+    45%,
+    55%,
+    65% {
+        transform: rotate(0);
+    }
+
+    20%,
+    60% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
+        transform: rotate(25deg);
+    }
+
+    80%,
+    86% {
+        filter: brightness(1);
+    }
+
+    83% {
+        filter: brightness(1.8);
+    }
+}

@@ -12,7 +12,7 @@ interface SafariZoneProps { }
 const SafariZone: FC<SafariZoneProps> = () => {
 
     const [pc, setPC] = useState(new Map<string, Pokemon[]>(Array(151).fill([]).map((v, idx) => [(idx + 1 + ''), v])));
-    const [selectedBall, setSelectedBall] = useState<PokeBall | null>(PokeBall.POKEBALL);
+    const [selectedBall, setSelectedBall] = useState<PokeBall | null>(null);
     const [bag, setBag] = useState<Bag>({
         pokeBalls: {
             pokeBalls: 82,
@@ -91,7 +91,7 @@ const SafariZone: FC<SafariZoneProps> = () => {
             <div className="header-buttons">
                 <button className="poke-button" onClick={saveGame}>Save Game</button>
                 <button className="poke-button" onClick={loadGame}>Load Game</button>
-                <input type="file" onChange={uploadGameFile} ref={loadButtonRef}  hidden/>
+                <input type="file" onChange={uploadGameFile} ref={loadButtonRef} hidden />
             </div>
             <div></div>
             <div className="poke-card-window" data-testid="PokeCardWindow">

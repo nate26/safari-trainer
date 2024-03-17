@@ -16,6 +16,7 @@ const PokeBag: FC<PokeBagProps> = ({ selectedBall, bag, handleSelectedBall }) =>
         handleSelectedBall(ballType);
     };
 
+    // make this dynamic / component based
     return (
         <div className="poke-bag" data-testid="PokeBag">
             <div className="bag-slot" hidden={bag.pokeBalls.pokeBalls === 0} onClick={() => selectBall(PokeBall.POKEBALL)} data-testid="PokeBagBall">

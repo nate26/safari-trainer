@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import './PokeImg.css';
 import { UseQueryResult } from '@tanstack/react-query';
 import { Pokemon } from '../../../../interfaces/Pokemon.interface';
+// import PokeBallCapture from './PokeBallCapture/PokeBallCapture';
 
 interface PokeImgProps { response: UseQueryResult<Pokemon, Error> }
 
@@ -18,10 +19,16 @@ const PokeImg: FC<PokeImgProps> = (props) => {
         <p data-testid="PokeImg">Pokemon Does Not Exist</p>
     );
 
-    
+
     const { name, shiny, sprite } = props.response.data;
 
     const article = ['a', 'e', 'i', 'o', 'u'].indexOf(name[0].toLowerCase()) >= 0 ? 'an' : 'a';
+
+    // if (Math.random() < 0.5) {
+    // return (
+    //     <PokeBallCapture />
+    // )
+    // }
 
     return (
         <div data-testid="PokeImg">
@@ -38,12 +45,13 @@ const PokeImg: FC<PokeImgProps> = (props) => {
     //             <circle cx="0" cy="50" r="15" fill="blue" stroke="transparent" strokeWidth="1">
     //                 <animateMotion path="M 0 0 H 500 Z" dur="3s" repeatCount="indefinite" />
     //             </circle>
-            
+
     //             <circle id="rotatingBall" cx="0" cy="50" r="15" fill="green" stroke="transparent" strokeWidth="1" opacity="0.8"></circle>
     //             <animateTransform xlinkHref="#rotatingBall" attributeName="transform" begin="0s" dur="2s" type="rotate" from="0 20 20" to="360 100 60" repeatCount="indefinite" />
     //         </svg>
     //     </div>
     // );
+
 };
 
 export default PokeImg;

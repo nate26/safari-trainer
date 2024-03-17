@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import './PokeCard.css';
 import { getPokemon } from '../../../api/Pokeapi';
-import { UseQueryResult } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import PokeImg from './PokeImg/PokeImg';
 import { Pokemon } from '../../../interfaces/Pokemon.interface';
 import { PokeBall } from '../../../enums/Pokeballs.enum';
@@ -15,8 +15,11 @@ interface PokeCardProps {
 
 const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selectedBall }) => {
 
-    const pokemon = getPokemon();
-    const [response, setResponse] = useState<UseQueryResult<Pokemon, Error>>(pokemon);
+    const response = useQuery<Pokemon>({
+        queryKey: ['repoData'],
+        queryFn: () => getPokemon(),
+        staleTime: Infinity
+    });
 
     const [catchText, setCatchText] = useState('');
     const [catchTextFade, setCatchTextFade] = useState(false);
@@ -41,9 +44,9 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
     };
 
     const handleCatch = () => {
-        if (!pokemon.data) return;
+        if (!response.data) return;
 
-        const { name, catchRate } = pokemon.data;
+        const { name, catchRate } = response.data;
 
         // safarizone catchrate
         const base = 12.75;
@@ -64,7 +67,7 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
         // console.log(probabilityOfCapture, chance);
         if (probabilityOfCapture > chance || selectedBall === PokeBall.MASTERBALL) {
             setCatchText(name + ' was caught!');
-            handleCaughtPokemon(pokemon.data);
+            handleCaughtPokemon(response.data);
             handleReRoll();
         }
         else {
@@ -83,15 +86,13 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
     };
 
     const handleReRoll = () => {
-        response.refetch()
-            .then(response => setResponse(response))
-            .catch(err => console.error('could not refetch data', err));
+        response.refetch();
     };
 
     return (
         <div className="PokeCard" data-testid="PokeCard">
             <p className={`${catchTextFade ? 'fadeout' : ''}`} style={{ 'height': '47px' }}>{catchText}</p>
-            <PokeImg response={pokemon} />
+            <PokeImg response={response} />
             <div className="poke-button-area">
                 <button className="poke-button" onClick={handleCatch} disabled={!selectedBall}>
                     Catch

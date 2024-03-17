@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import { PokeApiPokemon } from '../interfaces/PokeAPIPokemon.interface';
 import { PokeApiSpecies } from '../interfaces/PokeAPISpecies.interface';
 import { Pokemon } from '../interfaces/Pokemon.interface';
@@ -33,10 +32,7 @@ const enrichPokemon = (pokemon: PokeApiPokemon, species: PokeApiSpecies): Pokemo
 export const getPokemon = () => {
     const rand = Math.round(Math.random() * MAX_POKEMON) + 1;
 
-    return useQuery<Pokemon>({
-        queryKey: ['repoData'],
-        queryFn: () => getPokemonApi(rand)
-            .then((pokemon) => Promise.all([pokemon, getSpeciesApi(pokemon)]))
-            .then(([pokemon, species]) => enrichPokemon(pokemon, species))
-    });
+    return getPokemonApi(rand)
+        .then((pokemon) => Promise.all([pokemon, getSpeciesApi(pokemon)]))
+        .then(([pokemon, species]) => enrichPokemon(pokemon, species));
 };
