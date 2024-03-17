@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import './PokeBallCapture.css';
 
-const PokeBallCapture: FC = () => {
+const PokeBallCapture: FC<{ ballShake: number }> = ({ ballShake }) => {
+    const shakeClass = ballShake === 4 ? 'tilt-capture' : 'tilt-' + ballShake;
     return (
         <div className="poke-ball-capture" data-testid="PokeBallCapture">
-            <svg width="120" height="127" viewBox="0 0 120 127" fill="none" xmlns="http://www.w3.org/2000/svg" className="tilt-capture">
+            <svg width="120" height="127" viewBox="0 0 120 127" fill="none" xmlns="http://www.w3.org/2000/svg" className={shakeClass}>
                 <ellipse cx="60.5" cy="64.5" rx="57.5" ry="58.5" fill="#080B12" />
                 <g filter="url(#filter0_i_1669_162202)">
                     <mask id="mask0_1669_162202" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="72" width="120" height="55">

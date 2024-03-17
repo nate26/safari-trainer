@@ -16,7 +16,7 @@ describe.only('<PokeImg />', () => {
                 shiny: false
             }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImg = screen.getByTestId('PokeImg');
         expect(pokeImg).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe.only('<PokeImg />', () => {
                 shiny: false
             }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImgImg = screen.getByTestId('PokeImgImg');
         expect(pokeImgImg).toHaveAttribute('src', 'pikachu.png');
@@ -44,7 +44,7 @@ describe.only('<PokeImg />', () => {
                 shiny: false
             }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImgText = screen.getByTestId('PokeImgText');
         expect(pokeImgText).toHaveTextContent('You have encountered a test!');
@@ -58,7 +58,7 @@ describe.only('<PokeImg />', () => {
                 shiny: true
             }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImgText = screen.getByTestId('PokeImgText');
         expect(pokeImgText).toHaveTextContent('You have encountered a shiny test!');
@@ -72,7 +72,7 @@ describe.only('<PokeImg />', () => {
                 shiny: true
             }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImgText = screen.getByTestId('PokeImgText');
         expect(pokeImgText).toHaveTextContent('You have encountered a shiny Abra!');
@@ -80,23 +80,23 @@ describe.only('<PokeImg />', () => {
 
     test('load encounter text if not shiny and starts with any ARTICLE', () => {
         // a
-        render(<PokeImg response={{ data: { name: 'Abra' } } as UseQueryResult<Pokemon, Error>} />);
+        render(<PokeImg response={{ data: { name: 'Abra' } } as UseQueryResult<Pokemon, Error>} ballShake={null} />);
         expect(screen.getByTestId('PokeImgText')).toHaveTextContent('You have encountered an Abra!');
         // e
         cleanup();
-        render(<PokeImg response={{ data: { name: 'Ekans' } } as UseQueryResult<Pokemon, Error>} />);
+        render(<PokeImg response={{ data: { name: 'Ekans' } } as UseQueryResult<Pokemon, Error>} ballShake={null} />);
         expect(screen.getByTestId('PokeImgText')).toHaveTextContent('You have encountered an Ekans!');
         // i
         cleanup();
-        render(<PokeImg response={{ data: { name: 'Infernape' } } as UseQueryResult<Pokemon, Error>} />);
+        render(<PokeImg response={{ data: { name: 'Infernape' } } as UseQueryResult<Pokemon, Error>} ballShake={null} />);
         expect(screen.getByTestId('PokeImgText')).toHaveTextContent('You have encountered an Infernape!');
         // o
         cleanup();
-        render(<PokeImg response={{ data: { name: 'Onix' } } as UseQueryResult<Pokemon, Error>} />);
+        render(<PokeImg response={{ data: { name: 'Onix' } } as UseQueryResult<Pokemon, Error>} ballShake={null} />);
         expect(screen.getByTestId('PokeImgText')).toHaveTextContent('You have encountered an Onix!');
         // u
         cleanup();
-        render(<PokeImg response={{ data: { name: 'Unknown' } } as UseQueryResult<Pokemon, Error>} />);
+        render(<PokeImg response={{ data: { name: 'Unknown' } } as UseQueryResult<Pokemon, Error>} ballShake={null} />);
         expect(screen.getByTestId('PokeImgText')).toHaveTextContent('You have encountered an Unknown!');
     });
 
@@ -108,7 +108,7 @@ describe.only('<PokeImg />', () => {
                 shiny: false
             }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImgText = screen.getByTestId('PokeImgText');
         expect(pokeImgText).toHaveStyle({ color: convertHexToRGBA('#d9d9d9') });
@@ -120,7 +120,7 @@ describe.only('<PokeImg />', () => {
         const data = {
             isLoading: true
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImg = screen.getByTestId('PokeImg');
         expect(pokeImg).toHaveTextContent('Loading...');
@@ -130,7 +130,7 @@ describe.only('<PokeImg />', () => {
         const data = {
             error: { message: 'some error' }
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImg = screen.getByTestId('PokeImg');
         expect(pokeImg).toHaveTextContent('An error has occurred: some error');
@@ -140,7 +140,7 @@ describe.only('<PokeImg />', () => {
         const data = {
             isLoading: false
         } as UseQueryResult<Pokemon, Error>;
-        render(<PokeImg response={data} />);
+        render(<PokeImg response={data} ballShake={null} />);
 
         const pokeImg = screen.getByTestId('PokeImg');
         expect(pokeImg).toHaveTextContent('Pokemon Does Not Exist');

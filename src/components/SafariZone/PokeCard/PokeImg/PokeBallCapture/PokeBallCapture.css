@@ -5,11 +5,84 @@
     align-items: center;
 }
 
+.tilt-1,
+.tilt-2,
+.tilt-3,
+.tilt-capture {
+    animation-timing-function: ease-in;
+    transform-origin: bottom center;
+}
+
+.tilt-1 {
+    animation-name: tilt1;
+    animation-duration: 1s;
+}
+
+.tilt-2 {
+    animation-name: tilt2;
+    animation-duration: 2s;
+}
+
+.tilt-3 {
+    animation-name: tilt3;
+    animation-duration: 3s;
+}
+
 .tilt-capture {
     animation-name: tiltCapture;
-    animation-timing-function: ease-in;
     animation-duration: 4s;
-    transform-origin: bottom center;
+}
+
+@keyframes tilt1 {
+
+    0%,
+    20%,
+    60% {
+        transform: rotate(0);
+    }
+
+    40% {
+        transform: rotate(-25deg);
+    }
+}
+
+@keyframes tilt2 {
+
+    0%,
+    30%,
+    100% {
+        transform: rotate(0);
+    }
+
+    45% {
+        transform: rotate(-25deg);
+    }
+
+    85% {
+        transform: rotate(25deg);
+    }
+}
+
+@keyframes tilt3 {
+
+    0%,
+    10%,
+    30%,
+    40%,
+    60%,
+    70%,
+    90% {
+        transform: rotate(0);
+    }
+
+    20%,
+    80% {
+        transform: rotate(-25deg);
+    }
+
+    50% {
+        transform: rotate(25deg);
+    }
 }
 
 @keyframes tiltCapture {

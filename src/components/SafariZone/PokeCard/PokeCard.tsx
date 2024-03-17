@@ -21,9 +21,15 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
         staleTime: Infinity
     });
 
+    const [ballShake, setBallShake] = useState<number | null>(null);
+
     const [catchText, setCatchText] = useState('');
     const [catchTextFade, setCatchTextFade] = useState(false);
 
+    const [catching, setCatching] = useState(false);
+
+    let caughtTimer: NodeJS.Timeout;
+    let rerollTimer: NodeJS.Timeout;
     let catchTextTimer: NodeJS.Timeout;
 
     const getBonusBall = () => {
@@ -43,6 +49,14 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
         }
     };
 
+    const fadeOutText = () => {
+        if (catchTextTimer) clearTimeout(catchTextTimer);
+        setCatchTextFade(false);
+        catchTextTimer = setTimeout(() => {
+            setCatchTextFade(true); // start fade out
+        }, 800);
+    };
+
     const handleCatch = () => {
         if (!response.data) return;
 
@@ -53,9 +67,6 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
         const catchFactor = Math.max(Math.floor(catchRate / base), 1);
         const modCatchRate = catchFactor * base;
 
-        // const shakeCheck = 65535;
-        // const shakeProbability = Math.floor(1045860 / Math.floor(Math.sqrt(Math.floor(Math.sqrt(Math.floor(16711680 / catchRate))))));
-
         const baseChance = 1 / 3;
         const probabilityOfCapture = (1 - Math.pow(Math.E, Math.log(-(modCatchRate / 255) + 1))) * baseChance * getBonusBall();
 
@@ -63,26 +74,40 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
         // const currentHealth = 1; // mock for now
         // const probabilityOfCapture = (((3 * maxHealth) - (2 * currentHealth)) / (3 * maxHealth)) * (catchRate / 255) * bonusBall;
 
+        // todo: cleanup conditions
+
         const chance = Math.random();
-        // console.log(probabilityOfCapture, chance);
+        const ballShakes = selectedBall === PokeBall.MASTERBALL ? 4 : Math.floor((probabilityOfCapture - chance) * 4 + 4);
+
+        setCatching(true);
+
+        // weird timeouts... probably should use a promise chain or rxjs-react
         if (probabilityOfCapture > chance || selectedBall === PokeBall.MASTERBALL) {
-            setCatchText(name + ' was caught!');
-            handleCaughtPokemon(response.data);
-            handleReRoll();
+            if (caughtTimer) clearTimeout(caughtTimer);
+            caughtTimer = setTimeout(() => {
+                setCatchText(name + ' was caught!');
+                fadeOutText();
+                handleCaughtPokemon(response.data);
+                if (rerollTimer) clearTimeout(rerollTimer);
+                rerollTimer = setTimeout(() => {
+                    handleReRoll();
+                    setBallShake(null);
+                    setCatching(false);
+                }, 1000);
+            }, 3500);
         }
         else {
-            setCatchText(name + ' broke free!');
+            if (caughtTimer) clearTimeout(caughtTimer);
+            caughtTimer = setTimeout(() => {
+                setCatchText(name + ' broke free!');
+                fadeOutText();
+                setBallShake(null);
+                setCatching(false);
+            }, ballShakes * 1000 + 500);
         }
 
+        setBallShake(ballShakes);
         handleUseBall();
-
-        if (catchTextTimer) {
-            clearTimeout(catchTextTimer);
-        }
-        setCatchTextFade(false);
-        catchTextTimer = setTimeout(() => {
-            setCatchTextFade(true); // start fade out
-        }, 800);
     };
 
     const handleReRoll = () => {
@@ -92,12 +117,12 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
     return (
         <div className="PokeCard" data-testid="PokeCard">
             <p className={`${catchTextFade ? 'fadeout' : ''}`} style={{ 'height': '47px' }}>{catchText}</p>
-            <PokeImg response={response} />
+            <PokeImg response={response} ballShake={ballShake} />
             <div className="poke-button-area">
-                <button className="poke-button" onClick={handleCatch} disabled={!selectedBall}>
+                <button className="poke-button" onClick={handleCatch} disabled={!selectedBall || catching}>
                     Catch
                 </button>
-                <button className="poke-button" onClick={handleReRoll}>
+                <button className="poke-button" onClick={handleReRoll} disabled={catching}>
                     Run
                 </button>
             </div>
