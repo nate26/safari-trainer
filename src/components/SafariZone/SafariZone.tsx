@@ -6,11 +6,15 @@ import { Pokemon } from '../../interfaces/Pokemon.interface';
 import PokeBag from './PokeBag/PokeBag';
 import { PokeBall } from '../../enums/Pokeballs.enum';
 import { Bag } from '../../interfaces/Bag.interface';
+import { useDispatch } from 'react-redux';
 
 interface SafariZoneProps { }
 
 const SafariZone: FC<SafariZoneProps> = () => {
 
+    const dispatch = useDispatch();
+
+    // useReducer instead
     const [pc, setPC] = useState(new Map<string, Pokemon[]>(Array(151).fill([]).map((v, idx) => [(idx + 1 + ''), v])));
     const [selectedBall, setSelectedBall] = useState<PokeBall | null>(null);
     const [bag, setBag] = useState<Bag>({
@@ -55,6 +59,7 @@ const SafariZone: FC<SafariZoneProps> = () => {
         tempBag.pokeBalls[selectedBall] = tempBag.pokeBalls[selectedBall] - 1;
         if (tempBag.pokeBalls[selectedBall] <= 0) setSelectedBall(null);
         setBag(tempBag);
+        dispatch({ type: 'REMOVE_POKEBALL', data: selectedBall });
     };
 
     const saveGame = () => {

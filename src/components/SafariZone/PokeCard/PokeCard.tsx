@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import './PokeCard.css';
 import { getPokemon } from '../../../api/Pokeapi';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +18,7 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
     const response = useQuery<Pokemon>({
         queryKey: ['repoData'],
         queryFn: () => getPokemon(),
-        staleTime: Infinity
+        staleTime: Infinity // shouldnt i useMemo instead for this? or is useMemo only suitable for synchronous responses
     });
 
     const [ballShake, setBallShake] = useState<number | null>(null);
@@ -28,9 +28,9 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
 
     const [catching, setCatching] = useState(false);
 
-    let caughtTimer: NodeJS.Timeout;
-    let rerollTimer: NodeJS.Timeout;
-    let catchTextTimer: NodeJS.Timeout;
+    const caughtTimer = useRef<NodeJS.Timeout | null>(null);
+    const rerollTimer = useRef<NodeJS.Timeout | null>(null);
+    const catchTextTimer = useRef<NodeJS.Timeout | null>(null);
 
     const getBonusBall = () => {
         switch (selectedBall) {
@@ -50,14 +50,21 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
     };
 
     const fadeOutText = () => {
-        if (catchTextTimer) clearTimeout(catchTextTimer);
+        if (catchTextTimer.current) clearTimeout(catchTextTimer.current);
         setCatchTextFade(false);
-        catchTextTimer = setTimeout(() => {
+        catchTextTimer.current = setTimeout(() => {
             setCatchTextFade(true); // start fade out
         }, 800);
     };
 
-    const handleCatch = () => {
+    const sleep = (ms: number, timerRef: NodeJS.Timeout | null) => {
+        return new Promise(resolve => {
+            if (timerRef) clearTimeout(timerRef);
+            timerRef = setTimeout(resolve, ms);
+        });
+    };
+
+    const handleCatch = async () => {
         if (!response.data) return;
 
         const { name, catchRate } = response.data;
@@ -80,38 +87,35 @@ const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selec
         const ballShakes = selectedBall === PokeBall.MASTERBALL ? 4 : Math.floor((probabilityOfCapture - chance) * 4 + 4);
 
         setCatching(true);
+        setBallShake(ballShakes);
+        handleUseBall();
 
-        // weird timeouts... probably should use a promise chain or rxjs-react
+        // weird timeouts... consider using rxjs-react
         if (probabilityOfCapture > chance || selectedBall === PokeBall.MASTERBALL) {
-            if (caughtTimer) clearTimeout(caughtTimer);
-            caughtTimer = setTimeout(() => {
+            await sleep(3500, caughtTimer.current).then(() => {
                 setCatchText(name + ' was caught!');
                 fadeOutText();
                 handleCaughtPokemon(response.data);
-                if (rerollTimer) clearTimeout(rerollTimer);
-                rerollTimer = setTimeout(() => {
-                    handleReRoll();
-                    setBallShake(null);
-                    setCatching(false);
-                }, 1000);
-            }, 3500);
+                return sleep(1000, rerollTimer.current);
+            }).then(() => {
+                return handleReRoll();
+            }).then(() => {
+                setBallShake(null);
+                setCatching(false);
+            });
         }
         else {
-            if (caughtTimer) clearTimeout(caughtTimer);
-            caughtTimer = setTimeout(() => {
+            await sleep(ballShakes * 1000 + 500, caughtTimer.current).then(() => {
                 setCatchText(name + ' broke free!');
                 fadeOutText();
                 setBallShake(null);
                 setCatching(false);
-            }, ballShakes * 1000 + 500);
+            });
         }
-
-        setBallShake(ballShakes);
-        handleUseBall();
     };
 
     const handleReRoll = () => {
-        response.refetch();
+        return response.refetch();
     };
 
     return (
