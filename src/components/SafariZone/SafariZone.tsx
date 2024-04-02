@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import './SafariZone.css';
 import PokeCard from './PokeCard/PokeCard';
 import PokePC from './PokePC/PokePC';
@@ -6,7 +6,8 @@ import { Pokemon } from '../../interfaces/Pokemon.interface';
 import PokeBag from './PokeBag/PokeBag';
 import { PokeBall } from '../../enums/Pokeballs.enum';
 import { Bag } from '../../interfaces/Bag.interface';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { PC } from '../../interfaces/PC.interface';
 
 interface SafariZoneProps { }
 
@@ -14,39 +15,28 @@ const SafariZone: FC<SafariZoneProps> = () => {
 
     const dispatch = useDispatch();
 
-    // useReducer instead
-    const [pc, setPC] = useState(new Map<string, Pokemon[]>(Array(151).fill([]).map((v, idx) => [(idx + 1 + ''), v])));
+    const bag = useSelector((state: { bagReducer: Bag }) => state.bagReducer);
+    const pc = useSelector((state: { pcReducer: PC }) => state.pcReducer);
+
     const [selectedBall, setSelectedBall] = useState<PokeBall | null>(null);
-    const [bag, setBag] = useState<Bag>({
-        pokeBalls: {
-            pokeBalls: 82,
-            greatBalls: 42,
-            ultraBalls: 20,
-            masterBalls: 1,
-            repeatBalls: 0,
-            timerBalls: 0
-        },
-        battleItems: {
-            escapeRopes: 0,
-            soothBells: 0
-        },
-        pokeItems: {
-            fireStones: 0,
-            leafStones: 0,
-            moonStones: 0,
-            sunStones: 0,
-            thunderStones: 0,
-            waterStones: 0
-        }
-    });
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_BAG', data: {
+                pokeBalls: 82,
+                greatBalls: 42,
+                ultraBalls: 20,
+                masterBalls: 1,
+                repeatBalls: 0,
+                timerBalls: 0
+            }
+        });
+    }, []);
 
     const loadButtonRef = useRef<HTMLInputElement>(null);
 
     const handleCaughtPokemon = (caughtPokemon: Pokemon) => {
-        const id = caughtPokemon.id + '';
-        const pokeArr = pc.get(id);
-        const newPokeArr = pokeArr ? [...pokeArr, caughtPokemon] : [caughtPokemon];
-        setPC(new Map<string, Pokemon[]>(pc).set(id, newPokeArr));
+        dispatch({ type: 'CAUGHT', data: caughtPokemon });
     };
 
     const handleSelectedBall = (selectedBall: PokeBall) => {
@@ -55,15 +45,12 @@ const SafariZone: FC<SafariZoneProps> = () => {
 
     const handleUseBall = () => {
         if (!selectedBall) return;
-        const tempBag = bag;
-        tempBag.pokeBalls[selectedBall] = tempBag.pokeBalls[selectedBall] - 1;
-        if (tempBag.pokeBalls[selectedBall] <= 0) setSelectedBall(null);
-        setBag(tempBag);
-        dispatch({ type: 'REMOVE_POKEBALL', data: selectedBall });
+        if ((bag[selectedBall] ?? 0) - 1 <= 0) setSelectedBall(null);
+        dispatch({ type: 'REMOVE_FROM_BAG', data: selectedBall });
     };
 
     const saveGame = () => {
-        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(Object.fromEntries(pc)));
+        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(pc));
         const dlAnchorElem = document.getElementById('saveGameEl')!;
         dlAnchorElem.setAttribute('href', dataStr);
         dlAnchorElem.setAttribute('download', `Safari_Zone_Save_(${new Date().toLocaleString().replace(/ /gi, '')}).json`);
@@ -84,8 +71,8 @@ const SafariZone: FC<SafariZoneProps> = () => {
             const data = e.target?.result as string;
             // TODO: more validations
             if (data) {
-                const parsedData: ({ [id: number]: Pokemon[] }) = JSON.parse(data);
-                setPC(new Map(Object.entries(parsedData)));
+                const parsedData: PC = JSON.parse(data);
+                dispatch({ type: 'SET_PC', data: parsedData });
             }
         };
     };
@@ -101,9 +88,9 @@ const SafariZone: FC<SafariZoneProps> = () => {
             <div></div>
             <div className="poke-card-window" data-testid="PokeCardWindow">
                 <PokeCard handleCaughtPokemon={handleCaughtPokemon} handleUseBall={handleUseBall} selectedBall={selectedBall} />
-                <PokeBag selectedBall={selectedBall} bag={bag} handleSelectedBall={handleSelectedBall} />
+                <PokeBag selectedBall={selectedBall} handleSelectedBall={handleSelectedBall} />
             </div>
-            <PokePC pc={pc} />
+            <PokePC />
         </div>
     );
 };

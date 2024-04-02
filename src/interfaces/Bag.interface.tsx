@@ -1,16 +1,10 @@
 export interface Bag {
-    pokeBalls: PokeBalls;
-    battleItems: BattleItems;
-    pokeItems: PokeItems;
-}
-
-export interface PokeBalls {
-    pokeBalls: number;
-    greatBalls: number;
-    ultraBalls: number;
-    masterBalls: number;
-    repeatBalls: number;
-    timerBalls: number;
+    pokeBalls?: number;
+    greatBalls?: number;
+    ultraBalls?: number;
+    masterBalls?: number;
+    repeatBalls?: number;
+    timerBalls?: number;
 }
 
 export interface BattleItems {

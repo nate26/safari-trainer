@@ -2,42 +2,41 @@ import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import PokeBag from './PokeBag';
-import { Bag } from '../../../interfaces/Bag.interface';
 import { PokeBall } from '../../../enums/Pokeballs.enum';
 
 describe('<PokeBag />', () => {
 
     test('it should mount', () => {
-        const bag = {
-            pokeBalls: {
-                pokeBalls: 82,
-                greatBalls: 42,
-                ultraBalls: 20,
-                masterBalls: 0,
-                repeatBalls: 0,
-                timerBalls: 0
-            }
-        } as Bag;
-        const handleSelectedBall = () => {};
-        render(<PokeBag selectedBall={null} bag={bag} handleSelectedBall={handleSelectedBall} />);
+        // const bag = {
+        //     pokeBalls: {
+        //         pokeBalls: 82,
+        //         greatBalls: 42,
+        //         ultraBalls: 20,
+        //         masterBalls: 0,
+        //         repeatBalls: 0,
+        //         timerBalls: 0
+        //     }
+        // } as Bag;
+        const handleSelectedBall = () => { };
+        render(<PokeBag selectedBall={null} handleSelectedBall={handleSelectedBall} />);
 
         const pokeBag = screen.getByTestId('PokeBag');
         expect(pokeBag).toBeInTheDocument();
     });
 
     test('only display pokeballs that exist', () => {
-        const bag = {
-            pokeBalls: {
-                pokeBalls: 82,
-                greatBalls: 0,
-                ultraBalls: 20,
-                masterBalls: 1,
-                repeatBalls: 10,
-                timerBalls: 0
-            }
-        } as Bag;
-        const handleSelectedBall = () => {};
-        render(<PokeBag selectedBall={null} bag={bag} handleSelectedBall={handleSelectedBall} />);
+        // const bag = {
+        //     pokeBalls: {
+        //         pokeBalls: 82,
+        //         greatBalls: 0,
+        //         ultraBalls: 20,
+        //         masterBalls: 1,
+        //         repeatBalls: 10,
+        //         timerBalls: 0
+        //     }
+        // } as Bag;
+        const handleSelectedBall = () => { };
+        render(<PokeBag selectedBall={null} handleSelectedBall={handleSelectedBall} />);
 
         const pokeBagBalls = screen.queryAllByTestId('PokeBagBall');
         expect(pokeBagBalls).toHaveLength(6);
@@ -50,19 +49,19 @@ describe('<PokeBag />', () => {
     });
 
     test('select each kind of ball to pass up to parent', () => {
-        const bag = {
-            pokeBalls: {
-                pokeBalls: 82,
-                greatBalls: 0,
-                ultraBalls: 20,
-                masterBalls: 1,
-                repeatBalls: 10,
-                timerBalls: 0
-            }
-        } as Bag;
+        // const bag = {
+        //     pokeBalls: {
+        //         pokeBalls: 82,
+        //         greatBalls: 0,
+        //         ultraBalls: 20,
+        //         masterBalls: 1,
+        //         repeatBalls: 10,
+        //         timerBalls: 0
+        //     }
+        // } as Bag;
         let selectedBall: PokeBall | null = null;
         const handleSelectedBall = (ball: PokeBall) => selectedBall = ball;
-        render(<PokeBag selectedBall={null} bag={bag} handleSelectedBall={handleSelectedBall} />);
+        render(<PokeBag selectedBall={null} handleSelectedBall={handleSelectedBall} />);
 
         const pokeBagBalls = screen.queryAllByTestId('PokeBagBall');
         pokeBagBalls[0].click();
@@ -80,29 +79,29 @@ describe('<PokeBag />', () => {
     });
 
     test('select ball should be highlighted for each ball', () => {
-        const bag = {
-            pokeBalls: {
-                pokeBalls: 82,
-                greatBalls: 31,
-                ultraBalls: 20,
-                masterBalls: 1,
-                repeatBalls: 10,
-                timerBalls: 1
-            }
-        } as Bag;
+        // const bag = {
+        //     pokeBalls: {
+        //         pokeBalls: 82,
+        //         greatBalls: 31,
+        //         ultraBalls: 20,
+        //         masterBalls: 1,
+        //         repeatBalls: 10,
+        //         timerBalls: 1
+        //     }
+        // } as Bag;
 
         const convertClasses = (arr: HTMLElement[]) => arr.reduce((r, e, idx) => {
             r[idx] = e.className;
             return r;
-        }, {} as ({[ idx: number ]: string}));
+        }, {} as ({ [idx: number]: string }));
 
-        
-        render(<PokeBag selectedBall={null} bag={bag} handleSelectedBall={() => {}} />);
+
+        render(<PokeBag selectedBall={null} handleSelectedBall={() => { }} />);
         let pokeBagBallImgs = screen.queryAllByTestId('PokeBagBallImg');
 
         const rerender = (ball: PokeBall) => {
             cleanup();
-            render(<PokeBag selectedBall={ball} bag={bag} handleSelectedBall={() => {}} />);
+            render(<PokeBag selectedBall={ball} handleSelectedBall={() => { }} />);
             pokeBagBallImgs = screen.queryAllByTestId('PokeBagBallImg');
         };
 
@@ -135,18 +134,18 @@ describe('<PokeBag />', () => {
     });
 
     test('each pokeball should have the appropriate image', () => {
-        const bag = {
-            pokeBalls: {
-                pokeBalls: 82,
-                greatBalls: 1,
-                ultraBalls: 20,
-                masterBalls: 1,
-                repeatBalls: 10,
-                timerBalls: 1
-            }
-        } as Bag;
-        const handleSelectedBall = () => {};
-        render(<PokeBag selectedBall={null} bag={bag} handleSelectedBall={handleSelectedBall} />);
+        // const bag = {
+        //     pokeBalls: {
+        //         pokeBalls: 82,
+        //         greatBalls: 1,
+        //         ultraBalls: 20,
+        //         masterBalls: 1,
+        //         repeatBalls: 10,
+        //         timerBalls: 1
+        //     }
+        // } as Bag;
+        const handleSelectedBall = () => { };
+        render(<PokeBag selectedBall={null} handleSelectedBall={handleSelectedBall} />);
 
         const pokeBagBallImgs = screen.queryAllByTestId('PokeBagBallImg');
         expect(pokeBagBallImgs[0]).toHaveAttribute('src', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png');
@@ -158,18 +157,18 @@ describe('<PokeBag />', () => {
     });
 
     test('each pokeball should have the correct count displayed', () => {
-        const bag = {
-            pokeBalls: {
-                pokeBalls: 82,
-                greatBalls: 31,
-                ultraBalls: 20,
-                masterBalls: 1,
-                repeatBalls: 10,
-                timerBalls: 12
-            }
-        } as Bag;
-        const handleSelectedBall = () => {};
-        render(<PokeBag selectedBall={null} bag={bag} handleSelectedBall={handleSelectedBall} />);
+        // const bag = {
+        //     pokeBalls: {
+        //         pokeBalls: 82,
+        //         greatBalls: 31,
+        //         ultraBalls: 20,
+        //         masterBalls: 1,
+        //         repeatBalls: 10,
+        //         timerBalls: 12
+        //     }
+        // } as Bag;
+        const handleSelectedBall = () => { };
+        render(<PokeBag selectedBall={null} handleSelectedBall={handleSelectedBall} />);
 
         const pokeBagBallCounts = screen.queryAllByTestId('PokeBagBallCount');
         expect(pokeBagBallCounts[0]).toHaveTextContent('82');
