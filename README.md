@@ -5,7 +5,7 @@ Pokemon Safari Zone Minigame
 ## Todo List
 
 Visual Improvements:
-- [ ] <font color="orange"> REQUIRED </font> cleanup UI for phone compat
+- [ ] <font color="orange"> REQUIRED </font> cleanup UI for phone compatibility
 - [ ] <font color="orange"> REQUIRED </font>view caught pokemon per type
 - [ ] gsap animations for performance
 - [ ] 3d models for throwing pokeball animations
