@@ -1,3 +1,11 @@
+.poke-img-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 500px;
+}
+
 .poke-img {
     height: 400px;
 }

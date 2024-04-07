@@ -30,60 +30,6 @@
     animation-name: tiltCapture;
 }
 
-/* @keyframes tilt1 {
-
-    0%,
-    15%,
-    25% {
-        transform: rotate(0);
-    }
-
-    20% {
-        transform: rotate(-25deg);
-    }
-}
-
-@keyframes tilt2 {
-
-    0%,
-    22.5%,
-    37.5%,
-    52.5%,
-    67.5% {
-        transform: rotate(0);
-    }
-
-    30% {
-        transform: rotate(-25deg);
-    }
-
-    60% {
-        transform: rotate(25deg);
-    }
-}
-
-@keyframes tilt3 {
-
-    0%,
-    18.75%,
-    31.25%,
-    43.75%,
-    56.25%,
-    68.75%,
-    81.25% {
-        transform: rotate(0);
-    }
-
-    25%,
-    75% {
-        transform: rotate(-25deg);
-    }
-
-    50% {
-        transform: rotate(25deg);
-    }
-} */
-
 @keyframes tilt1 {
 
     0%,

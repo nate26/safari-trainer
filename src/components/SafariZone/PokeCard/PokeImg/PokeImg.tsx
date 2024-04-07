@@ -12,15 +12,21 @@ interface PokeImgProps {
 
 const PokeImg: FC<PokeImgProps> = (props) => {
     if (props.response.isLoading) return (
-        <p data-testid="PokeImg">Loading...</p>
+        <div className="poke-img-area" data-testid="PokeImg">
+            <p>Loading...</p>
+        </div>
     );
 
     if (props.response.error) return (
-        <p data-testid="PokeImg">An error has occurred: {props.response.error.message}</p>
+        <div className="poke-img-area" data-testid="PokeImg">
+            <p >An error has occurred: {props.response.error.message}</p>
+        </div>
     );
 
     if (!props.response.data) return (
-        <p data-testid="PokeImg">Pokemon Does Not Exist</p>
+        <div className="poke-img-area" data-testid="PokeImg">
+            <p>Pokemon Does Not Exist</p>
+        </div>
     );
 
 
@@ -31,9 +37,10 @@ const PokeImg: FC<PokeImgProps> = (props) => {
     const display = props.ballShake === null ?
         <img className="poke-img" src={sprite} data-testid="PokeImgImg" /> :
         <PokeBallCapture ballShake={props.ballShake} />;
+    console.log(display)
 
     return (
-        <div data-testid="PokeImg">
+        <div className="poke-img-area" data-testid="PokeImg">
             {display}
             <p className="poke-encounter-text" data-testid="PokeImgText">
                 You have encountered {shiny ? 'a shiny' : article} <span className="poke-name" data-testid="PokeImgName">{name}</span>!
