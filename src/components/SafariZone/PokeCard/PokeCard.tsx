@@ -1,10 +1,12 @@
 import React, { FC, useRef, useState } from 'react';
 import './PokeCard.css';
-import { getPokemon } from '../../../api/Pokeapi';
 import { useQuery } from '@tanstack/react-query';
 import PokeImg from './PokeImg/PokeImg';
 import { Pokemon } from '../../../interfaces/Pokemon.interface';
 import { PokeBall } from '../../../enums/Pokeballs.enum';
+import { enrichPokemonREST, getPokemon } from '../../../api/Pokeapi';
+import { PokeApiPokemon } from '../../../interfaces/PokeAPIPokemon.interface';
+import { PokeApiSpecies } from '../../../interfaces/PokeAPISpecies.interface';
 
 interface PokeCardProps {
     // eslint-disable-next-line no-unused-vars
@@ -15,10 +17,11 @@ interface PokeCardProps {
 
 const PokeCard: FC<PokeCardProps> = ({ handleCaughtPokemon, handleUseBall, selectedBall }) => {
 
-    const response = useQuery<Pokemon>({
-        queryKey: ['repoData'],
+    const response = useQuery<[PokeApiPokemon, PokeApiSpecies], Error, Pokemon, string[]>({
+        queryKey: ['pokeapi'],
         queryFn: () => getPokemon(),
-        staleTime: Infinity // shouldnt i useMemo instead for this? or is useMemo only suitable for synchronous responses
+        select: enrichPokemonREST,
+        staleTime: Infinity
     });
 
     const [ballShake, setBallShake] = useState<number | null>(null);

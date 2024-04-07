@@ -3,7 +3,8 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { PokeBall } from '../enums/Pokeballs.enum';
 import { Bag } from '../interfaces/Bag.interface';
 import { Pokemon } from '../interfaces/Pokemon.interface';
-import { PC } from '../interfaces/PC.interface';
+import { PC, PokemonCaught } from '../interfaces/PC.interface';
+import { PokeLocation } from '../enums/PokeLocation.enum';
 
 export type StateType = {
     text: string;
@@ -25,17 +26,19 @@ const bagReducer = (bag: Bag, action: ({ type: string; data: Bag | PokeBall; }))
 const pcReducer = (pc: PC, action: ({ type: string; data: PC | Pokemon; })) => {
     if (action.type === 'SET_PC') return action.data; // temporary before using db
     const defaultPC = pc ?? Array(152).fill([]) as PC;
-    // if (['CAUGHT', 'RELEASE'].indexOf(action.type) === -1) {
-    //     return defaultPC;
-    // }
     const id = ((action.data as Pokemon ?? { id: 0 })?.id) ?? 0;
     let pokeArr = defaultPC[id];
+    const caughtPokemon = {
+        ...action.data as Pokemon,
+        captureDate: Date.now(),
+        captureLocation: PokeLocation.GRASSLAND
+    };
     switch (action.type) {
         case 'CAUGHT':
-            pokeArr = pokeArr ? [...pokeArr, action.data as Pokemon] : [action.data as Pokemon];
+            pokeArr = pokeArr ? [...pokeArr, caughtPokemon] : [caughtPokemon];
             break;
         case 'RELEASE':
-            pokeArr = pokeArr.splice(pokeArr.indexOf(action.data as Pokemon), 1);
+            pokeArr = pokeArr.splice(pokeArr.indexOf(action.data as PokemonCaught), 1);
             break;
     }
     const newPC = [

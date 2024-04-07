@@ -3,7 +3,6 @@ import './PokeImg.css';
 import { UseQueryResult } from '@tanstack/react-query';
 import { Pokemon } from '../../../../interfaces/Pokemon.interface';
 import PokeBallCapture from './PokeBallCapture/PokeBallCapture';
-// import PokeBallCapture from './PokeBallCapture/PokeBallCapture';
 
 interface PokeImgProps {
     response: UseQueryResult<Pokemon, Error>;
@@ -37,7 +36,6 @@ const PokeImg: FC<PokeImgProps> = (props) => {
     const display = props.ballShake === null ?
         <img className="poke-img" src={sprite} data-testid="PokeImgImg" /> :
         <PokeBallCapture ballShake={props.ballShake} />;
-    console.log(display)
 
     return (
         <div className="poke-img-area" data-testid="PokeImg">
