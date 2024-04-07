@@ -11,37 +11,34 @@
 .tilt-capture {
     animation-timing-function: ease-in;
     transform-origin: bottom center;
+    animation-duration: 4s;
 }
 
 .tilt-1 {
     animation-name: tilt1;
-    animation-duration: 1s;
 }
 
 .tilt-2 {
     animation-name: tilt2;
-    animation-duration: 2s;
 }
 
 .tilt-3 {
     animation-name: tilt3;
-    animation-duration: 3s;
 }
 
 .tilt-capture {
     animation-name: tiltCapture;
-    animation-duration: 4s;
 }
 
-@keyframes tilt1 {
+/* @keyframes tilt1 {
 
     0%,
-    20%,
-    60% {
+    15%,
+    25% {
         transform: rotate(0);
     }
 
-    40% {
+    20% {
         transform: rotate(-25deg);
     }
 }
@@ -49,16 +46,18 @@
 @keyframes tilt2 {
 
     0%,
-    30%,
-    100% {
+    22.5%,
+    37.5%,
+    52.5%,
+    67.5% {
         transform: rotate(0);
     }
 
-    45% {
+    30% {
         transform: rotate(-25deg);
     }
 
-    85% {
+    60% {
         transform: rotate(25deg);
     }
 }
@@ -66,21 +65,75 @@
 @keyframes tilt3 {
 
     0%,
-    10%,
-    30%,
-    40%,
-    60%,
-    70%,
-    90% {
+    18.75%,
+    31.25%,
+    43.75%,
+    56.25%,
+    68.75%,
+    81.25% {
         transform: rotate(0);
     }
 
-    20%,
-    80% {
+    25%,
+    75% {
         transform: rotate(-25deg);
     }
 
     50% {
+        transform: rotate(25deg);
+    }
+} */
+
+@keyframes tilt1 {
+
+    0%,
+    15%,
+    25% {
+        transform: rotate(0);
+    }
+
+    20% {
+        transform: rotate(-25deg);
+    }
+}
+
+@keyframes tilt2 {
+
+    0%,
+    15%,
+    25%,
+    35%,
+    45% {
+        transform: rotate(0);
+    }
+
+    20% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
+        transform: rotate(25deg);
+    }
+}
+
+@keyframes tilt3 {
+
+    0%,
+    15%,
+    25%,
+    35%,
+    45%,
+    55%,
+    65% {
+        transform: rotate(0);
+    }
+
+    20%,
+    60% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
         transform: rotate(25deg);
     }
 }
