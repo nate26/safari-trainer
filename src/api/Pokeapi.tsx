@@ -79,8 +79,8 @@ export const enrichPokemonREST = (data: [PokeApiPokemon, PokeApiSpecies]): Pokem
 };
 
 export const getPokemon = () => {
-    const rand = Math.round(Math.random() * MAX_POKEMON) + 1;
+    // const rand = Math.round(Math.random() * MAX_POKEMON) + 1;
 
-    return getPokemonApi(rand)
+    return getPokemonApi(10)
         .then((pokemon) => Promise.all([pokemon, getSpeciesApi(pokemon)]));
 };

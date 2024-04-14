@@ -6,7 +6,7 @@ Pokemon Safari Zone Minigame
 
 Visual Improvements:
 - [ ] <font color="orange"> REQUIRED </font> cleanup UI for phone compatibility
-- [ ] <font color="orange"> REQUIRED </font>view caught pokemon per type
+- [X] <font color="gray"> view caught pokemon per type </font>
 - [ ] gsap animations for performance
 - [ ] 3d models for throwing pokeball animations
 
@@ -23,11 +23,14 @@ User Data:
 Encounter Enhancements:
 - [ ] <font color="limegreen"> QUALITY </font> pokemon rarity in the wild
 - [ ] <font color="limegreen"> QUALITY </font> pokemon locations
+- [ ] <font color="limegreen"> QUALITY </font> leveling encounter tiers
 
 Catch Enhancements:
 - [ ] <font color="limegreen"> QUALITY </font> use bait / berries (gsap for animations)
 - [ ] <font color="limegreen"> QUALITY </font> throw rock / pokemon health (gsap for animations)
+- [ ] <font color="limegreen"> QUALITY </font> pokemon natures for movement animations / behaviors (gsap for animations)
 - [ ] enable timer and repeat balls
+- [ ] give nicknames
 
 Refactor:
 - [ ] <font color="orange"> REQUIRED </font> save poke data in redux saga cache (pokedex)

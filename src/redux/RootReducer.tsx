@@ -49,4 +49,9 @@ const pcReducer = (pc: PC, action: ({ type: string; data: PC | Pokemon; })) => {
     return newPC;
 };
 
-export default combineReducers({ bagReducer, pcReducer });
+const viewSpeciesReducer = (viewSpecies: Pokemon[], action: ({ type: string; data: Pokemon[]; })) => {
+    if (action.type === 'SET_VIEW_SPECIES') return action.data;
+    return viewSpecies ?? [];
+};
+
+export default combineReducers({ bagReducer, pcReducer, viewSpeciesReducer });

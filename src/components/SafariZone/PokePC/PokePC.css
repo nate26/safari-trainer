@@ -5,7 +5,8 @@
     margin-right: 30px;
 }
 
-.pc-poke-slot {
+.pc-poke-slot,
+.pc-poke-slot-filled {
     width: 50px;
     height: 50px;
     margin: 2px;
@@ -15,9 +16,20 @@
     line-height: 50px;
 }
 
+.pc-poke-slot-filled:hover {
+    animation: popout 0.3s ease-out;
+    transform: scale(1.15);
+    box-shadow: 0 0 5px rgb(166, 191, 199, 0.3);
+}
+
 .pc-poke-img {
     width: 100%;
     height: 100%;
+}
+
+.pc-poke-img:hover {
+    animation: highlight-pkm 0.3s ease-out;
+    filter: brightness(1.2);
 }
 
 .pc-poke-count {
@@ -33,4 +45,52 @@
     line-height: 20px;
     text-align: center;
     padding: 0 1px 1px 0;
+}
+
+@keyframes popout {
+
+    from {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    to {
+        transform: scale(1.15);
+        box-shadow: 0 0 5px rgb(166, 191, 199, 0.3);
+    }
+}
+
+@-webkit-keyframes popout {
+
+    from {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    to {
+        transform: scale(1.15);
+        box-shadow: 0 0 5px rgb(166, 191, 199, 0.3);
+    }
+}
+
+@keyframes highlight-pkm {
+
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.2);
+    }
+}
+
+@-webkit-keyframes highlight-pkm {
+
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.2);
+    }
 }
