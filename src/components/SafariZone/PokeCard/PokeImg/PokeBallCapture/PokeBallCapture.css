@@ -1,0 +1,116 @@
+.poke-ball-capture {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tilt-1,
+.tilt-2,
+.tilt-3,
+.tilt-capture {
+    animation-timing-function: ease-in;
+    transform-origin: bottom center;
+    animation-duration: 4s;
+}
+
+.tilt-1 {
+    animation-name: tilt1;
+}
+
+.tilt-2 {
+    animation-name: tilt2;
+}
+
+.tilt-3 {
+    animation-name: tilt3;
+}
+
+.tilt-capture {
+    animation-name: tiltCapture;
+}
+
+@keyframes tilt1 {
+
+    0%,
+    15%,
+    25% {
+        transform: rotate(0);
+    }
+
+    20% {
+        transform: rotate(-25deg);
+    }
+}
+
+@keyframes tilt2 {
+
+    0%,
+    15%,
+    25%,
+    35%,
+    45% {
+        transform: rotate(0);
+    }
+
+    20% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
+        transform: rotate(25deg);
+    }
+}
+
+@keyframes tilt3 {
+
+    0%,
+    15%,
+    25%,
+    35%,
+    45%,
+    55%,
+    65% {
+        transform: rotate(0);
+    }
+
+    20%,
+    60% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
+        transform: rotate(25deg);
+    }
+}
+
+@keyframes tiltCapture {
+
+    0%,
+    15%,
+    25%,
+    35%,
+    45%,
+    55%,
+    65% {
+        transform: rotate(0);
+    }
+
+    20%,
+    60% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
+        transform: rotate(25deg);
+    }
+
+    80%,
+    86% {
+        filter: brightness(1);
+    }
+
+    83% {
+        filter: brightness(1.8);
+    }
+}
