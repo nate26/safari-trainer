@@ -46,7 +46,7 @@ export interface PokeApiPokemon {
     past_abilities: never[];
     past_types: never[];
     species: Species;
-    sprites: Sprites;
+    sprites: SpritesREST;
     stats: Stat[];
     types: Type[];
     weight: number;
@@ -95,13 +95,13 @@ export interface VersionGroupDetail {
 }
 
 export interface GenerationV {
-    'black-white': Sprites;
+    'black-white': SpritesREST;
 }
 
 export interface GenerationIv {
-    'diamond-pearl': Sprites;
-    'heartgold-soulsilver': Sprites;
-    platinum: Sprites;
+    'diamond-pearl': SpritesREST;
+    'heartgold-soulsilver': SpritesREST;
+    platinum: SpritesREST;
 }
 
 export interface Versions {
@@ -119,10 +119,10 @@ export interface Other {
     dream_world: DreamWorld;
     home: Home;
     'official-artwork': OfficialArtwork;
-    showdown: Sprites;
+    showdown: SpritesREST;
 }
 
-export interface Sprites {
+export interface SpritesREST {
     back_default: string;
     back_female: null;
     back_shiny: string;
@@ -133,7 +133,7 @@ export interface Sprites {
     front_shiny_female: null;
     other?: Other;
     versions?: Versions;
-    animated?: Sprites;
+    animated?: SpritesREST;
 }
 
 export interface GenerationI {

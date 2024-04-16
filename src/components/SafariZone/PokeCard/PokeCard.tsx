@@ -6,7 +6,7 @@ import { Pokemon } from '../../../interfaces/Pokemon.interface';
 import { PokeBall } from '../../../enums/Pokeballs.enum';
 import { PokeApiPokemon } from '../../../interfaces/PokeAPIPokemon.interface';
 import { PokeApiSpecies } from '../../../interfaces/PokeAPISpecies.interface';
-import { getPokemon, enrichPokemonREST } from '../../../api/pokeapi';
+import { enrichPokemonREST, getPokemon } from '../../../api/Pokeapi';
 
 interface PokeCardProps {
     // eslint-disable-next-line no-unused-vars

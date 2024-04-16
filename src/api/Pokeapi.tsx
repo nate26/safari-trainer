@@ -5,6 +5,7 @@ import { PokeApiSpecies } from '../interfaces/PokeAPISpecies.interface';
 
 // Maximum number of Pokemon to fetch
 export const MAX_POKEMON = 150; // 1024 - all pokemon, use subset for now
+const GRAPHQL_BASE_URL = 'https://beta.pokeapi.co/graphql/v1beta';
 const API_BASE_URL = 'https://pokeapi.co/api/v2';
 
 //#region GraphQL get pokemon
@@ -39,7 +40,7 @@ const getSelectedPokemonGQL = (id: number): string => `
  */
 const getPokemonGQLById = async (id: number): Promise<PokeApiPokemonGQL> => {
     return await request<PokeApiPokemonGQL>(
-        'https://beta.pokeapi.co/graphql/v1beta',
+        GRAPHQL_BASE_URL,
         getSelectedPokemonGQL(id)
     );
 };

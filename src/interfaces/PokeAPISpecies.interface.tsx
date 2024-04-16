@@ -1,8 +1,8 @@
 export interface PokeApiSpecies {
     base_happiness: number;
     capture_rate: number;
-    color: Color;
-    egg_groups: Color[];
+    color: NameUrl;
+    egg_groups: NameUrl[];
     evolution_chain: EvolutionChain;
     evolves_from_species: null;
     flavor_text_entries: FlavorTextEntry[];
@@ -10,9 +10,9 @@ export interface PokeApiSpecies {
     forms_switchable: boolean;
     gender_rate: number;
     genera: Genus[];
-    generation: Color;
-    growth_rate: Color;
-    habitat: Color;
+    generation: NameUrl;
+    growth_rate: NameUrl;
+    habitat: NameUrl;
     has_gender_differences: boolean;
     hatch_counter: number;
     id: number;
@@ -24,11 +24,11 @@ export interface PokeApiSpecies {
     order: number;
     pal_park_encounters: PalParkEncounter[];
     pokedex_numbers: PokedexNumber[];
-    shape: Color;
+    shape: NameUrl;
     varieties: Variety[];
 }
 
-export interface Color {
+export interface NameUrl {
     name: string;
     url: string;
 }
@@ -39,32 +39,32 @@ export interface EvolutionChain {
 
 export interface FlavorTextEntry {
     flavor_text: string;
-    language: Color;
-    version: Color;
+    language: NameUrl;
+    version: NameUrl;
 }
 
 export interface Genus {
     genus: string;
-    language: Color;
+    language: NameUrl;
 }
 
 export interface Name {
-    language: Color;
+    language: NameUrl;
     name: string;
 }
 
 export interface PalParkEncounter {
-    area: Color;
+    area: NameUrl;
     base_score: number;
     rate: number;
 }
 
 export interface PokedexNumber {
     entry_number: number;
-    pokedex: Color;
+    pokedex: NameUrl;
 }
 
 export interface Variety {
     is_default: boolean;
-    pokemon: Color;
+    pokemon: NameUrl;
 }
