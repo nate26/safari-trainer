@@ -1,4 +1,4 @@
-# Safari Master
+# Safari Trainer
 
 Pokemon Safari Zone Minigame
 
